@@ -28,3 +28,32 @@ exports.authorizeRoles = (...roles) => {
         }
     }
 }
+
+//#region Admin Routes
+
+// Get all users => /api/v1/admin/allUsers
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+    const allUsers = await User.find()
+
+    res.status(200).json({
+        success: true,
+        count: allUsers.length,
+        allUsers
+    })
+})
+
+// Get usser by id => /api/v1/admin/user/:id
+exports.getUserDetailsById = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id)
+
+    if (!user) {
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+//#endregion
