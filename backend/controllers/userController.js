@@ -3,6 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 // Register a User => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -82,6 +83,81 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
         }
     }
 })
+
+// Reset password => /api/v1/password/reset/:token
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+    // Hash URL token
+    const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex")
+    console.log("resetPasswordToken: ", resetPasswordToken)
+    console.log("date: ", Date.now())
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpired: { $gt: Date.now() }
+    })
+
+    if (!user) {
+        return next(new ErrorHandler("Password reset token is invalid or has expired", 400))
+    }
+
+    if (req.body.password !== req.body.confirmPassword) {
+        return next(new ErrorHandler("Passwords do not match", 400))
+    }
+
+    // If passwords are same reset the old password with the new one
+    user.password = req.body.password
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpired = undefined
+    await user.save()
+
+    sendToken(user, 200, res)
+})
+
+// Get user profile => /api/v1/profile
+exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id)
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+// Update user profile => /api/v1/profile/update
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+    })
+})
+
+// Update-Change current password => /api/v1/password/update
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select("+password")
+
+    // Check previous password
+    const isMatchedPassword = await user.comparePassword(req.body.oldPassword)
+    if (!isMatchedPassword) {
+        return next(new ErrorHandler("Current password is incorrect", 400))
+    }
+
+    user.password = req.body.newPassword
+    await user.save()
+
+    sendToken(user, 200, res)
+})
+
+
 
 // Logout user => /api/v1/logout
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {

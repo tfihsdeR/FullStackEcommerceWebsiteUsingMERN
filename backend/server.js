@@ -12,8 +12,7 @@ process.on("uncaughtException", err => {
         console.log(`Error: ${err.message}`);
         console.log("Shutting down the server due to Unhandled Promise Exception");
     } else {
-        console.log(`Error: ${err.message}`);
-        console.log(`Stack: ${err.stack}`);
+        console.log(`Error: ${err.message}\n\nStack: ${err.stack}`);
     }
 
     process.exit(1);
@@ -32,20 +31,18 @@ process.on("unhandledRejection", err => {
         console.log(`Error: ${err.message}`);
         console.log("Shutting down the server due to Unhandled Promise Exception");
     } else {
-        console.log(`Error: ${err.message}`);
-        console.log(`Stack: ${err.stack}`);
+        console.log(`Error: ${err.message}\n\nStack: ${err.stack}`);
     }
     server.close(() => process.exit(1));
 });
 
-// // Handle MongoParseError Exception
-// process.on("uncaughtException", err => {
-//     if (process.env.NODE_ENV === "PRODUCTION") {
-//         console.log(`Error: ${err.message}`);
-//         console.log("Shutting down the server due to uncaughtException Exception");
-//     } else {
-//         console.log(`Error: ${err.message}`);
-//         console.log(`Stack: ${err.stack}`);
-//     }
-//     server.close(() => process.exit(1));
-// })
+// Handle MongoParseError Exception
+process.on("uncaughtException", err => {
+    if (process.env.NODE_ENV === "PRODUCTION") {
+        console.log(`Error: ${err.message}`);
+        console.log("Shutting down the server due to uncaughtException Exception");
+    } else {
+        console.log(`Error: ${err.message}\n\nStack: ${err.stack}`);
+    }
+    server.close(() => process.exit(1));
+})
