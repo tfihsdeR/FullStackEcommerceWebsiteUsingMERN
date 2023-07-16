@@ -171,3 +171,69 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
         message: "Logged out"
     })
 })
+
+//#region Admin Routes
+
+// Get all users => /api/v1/admin/allUsers
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+    const allUsers = await User.find()
+
+    res.status(200).json({
+        success: true,
+        count: allUsers.length,
+        allUsers
+    })
+})
+
+// Get usser by id => /api/v1/admin/user/:id
+exports.getUserDetailsById = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id)
+
+    if (!user) {
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+//Update user profile by user id - ADMIN => /api/v1/admin/user/:id
+exports.updateUserByIdByAdmin = catchAsyncErrors(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+    })
+})
+
+// Delete user by id - ADMIN => /api/v1/admin/user/:id
+exports.deleteUserByIdByAdmin = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id)
+    if (!user) {
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404))
+    } else {
+
+        // remove the avatar from the claudinary - TODO
+
+        await user.deleteOne()
+
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully"
+        })
+    }
+})
+
+//#endregion

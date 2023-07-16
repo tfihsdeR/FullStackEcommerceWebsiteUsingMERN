@@ -1,9 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-const { isAuthenticatedUser, authorizeRoles, getAllUsers, getUserDetailsById } = require("../middlewares/userAuthentication");
+const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/userAuthentication");
 
-const { registerUser, loginUser, forgotPassword, resetPassword, getUserProfile, updatePassword, updateProfile, logoutUser } = require("../controllers/userController");
+const { registerUser,
+    loginUser,
+    forgotPassword,
+    resetPassword,
+    getUserProfile,
+    updatePassword,
+    updateProfile,
+    logoutUser,
+    getAllUsers,
+    getUserDetailsById,
+    updateUserByIdByAdmin,
+    deleteUserByIdByAdmin
+} = require("../controllers/userController");
 
 //#region General Routes
 router.route("/register").post(registerUser)
@@ -20,7 +32,10 @@ router.route("/profile/update").put(isAuthenticatedUser, updateProfile)
 
 //#region Admin Routes
 router.route("/admin/allUsers").get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers)
-router.route("/admin/user/:id").get(isAuthenticatedUser, authorizeRoles("admin"), getUserDetailsById)
+router.route("/admin/user/:id")
+    .get(isAuthenticatedUser, authorizeRoles("admin"), getUserDetailsById)
+    .put(isAuthenticatedUser, authorizeRoles("admin"), updateUserByIdByAdmin)
+    .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteUserByIdByAdmin)
 //#endregion
 
 module.exports = router;
