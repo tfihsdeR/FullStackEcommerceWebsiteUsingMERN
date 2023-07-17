@@ -67,6 +67,8 @@ exports.myOrders = catchAsyncErrors(async (req, res, next) => {
 //#endregion
 
 //#region Admin Queries
+
+// Get all orders - ADMIN => /api/v1/amin/orders
 exports.getAllOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find()
 
@@ -82,4 +84,45 @@ exports.getAllOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
         orders
     })
 })
+
+// Update status of the order - ADMIN => /api/v1/admin/order/:id
+exports.updateOrderStatusByAdmin = catchAsyncErrors(async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
+    if (order.orderStatus === "Delivered") {
+        return next(new ErrorHandler("You have already delivered this order!", 400))
+    } else {
+        order.orderItems.forEach(async item => {
+            await updateStock(item.product, item.quantity)
+        })
+
+        order.orderStatus = req.body.orderStatus
+        order.dateOfDelivery = Date.now()
+        await order.save()
+
+        res.status(200).json({
+            success: true,
+        })
+    }
+})
+
+// Delete order - ADMIN => /api/v1/admin/order/:id
+exports.deleteOrderById = catchAsyncErrors(async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
+    if (!order) {
+        return next(new ErrorHandler("Order not found", 404))
+    } else {
+        await order.deleteOne()
+
+        res.status(200).json({
+            success: true,
+            message: "Order deleted successfully"
+        })
+    }
+})
 //#endregion
+
+async function updateStock(product, quantity) {
+    const _product = await Product.findById(product)
+    _product.stock = _product.stock - quantity
+    await _product.save({ validateBeforeSave: false })
+}
