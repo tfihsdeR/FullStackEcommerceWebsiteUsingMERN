@@ -1,23 +1,30 @@
 import React, { Fragment, useEffect } from 'react'
 import MetaData from './layout/MetaData'
 import Product from "./product/product"
+import Loader from "./layout/Loader"
 
 import { useDispatch, useSelector } from "react-redux"
 import { getAllProducts } from "../actions/productActions"
+import { useAlert, reactAlert } from "react-alert"
 
 function Home() {
     const dispatch = useDispatch();
+    const alert = useAlert();
 
     const { loading, products, error, productsCounts } = useSelector(state => state.products)
 
     useEffect(() => {
-        dispatch(getAllProducts());
-    }, [dispatch])
+        if (error) {
+            alert.error(error)
+        }
+
+        dispatch(getAllProducts())
+    }, [dispatch, error, alert])
 
     return (
         <Fragment>
             {
-                loading ? <h1>Loading...</h1> : (
+                loading ? <Loader /> : (
                     <Fragment>
                         <MetaData title={"Buy Best Products Online"} />
                         <h1 id="products_heading">Latest Products</h1>
