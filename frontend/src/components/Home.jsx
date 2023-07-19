@@ -14,11 +14,12 @@ function Home() {
     const { loading, products, error, productsCounts } = useSelector(state => state.products)
 
     useEffect(() => {
+        dispatch(getAllProducts())
+
         if (error) {
-            alert.error(error)
+            return alert.error(error)
         }
 
-        dispatch(getAllProducts())
     }, [dispatch, error, alert])
 
     return (
