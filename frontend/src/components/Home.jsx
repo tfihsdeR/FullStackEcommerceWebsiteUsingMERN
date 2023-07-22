@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
+import Pagination from "react-js-pagination"
 import MetaData from './layout/MetaData'
 import Product from "./product/product"
 import Loader from "./layout/Loader"
@@ -11,16 +12,22 @@ function Home() {
     const dispatch = useDispatch();
     const alert = useAlert();
 
-    const { loading, products, error, productsCounts } = useSelector(state => state.products)
+    const { loading, products, error, productsCount, resPerPage } = useSelector(state => state.products)
+
+    const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
-        dispatch(getAllProducts())
+        dispatch(getAllProducts(currentPage))
 
         if (error) {
             return alert.error(error)
         }
 
-    }, [dispatch, error, alert])
+    }, [dispatch, error, alert, currentPage])
+
+    const setCurrentPageNo = (pageNum) => {
+        setCurrentPage(pageNum)
+    }
 
     return (
         <Fragment>
@@ -39,6 +46,23 @@ function Home() {
                                 }
                             </div>
                         </section>
+
+                        {resPerPage <= productsCount && (
+                            <div className='d-flex justify-content mt-5'>
+                                <Pagination
+                                    activePage={currentPage}
+                                    itemsCountPerPage={resPerPage}
+                                    totalItemsCount={parseInt(productsCount)}
+                                    onChange={setCurrentPageNo}
+                                    nextPageText={'Next'}
+                                    prevPageText={'Prev'}
+                                    firstPageText={'First'}
+                                    lastPageText={'Last'}
+                                    itemClass="page-item"
+                                    linkClass="page-link"
+                                />
+                            </div>
+                        )}
                     </Fragment>
                 )
             }
