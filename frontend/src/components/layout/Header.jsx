@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Routes, Router, Route, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 
 function Header() {
@@ -8,7 +8,9 @@ function Header() {
             <nav className="navbar row">
                 <div className="col-12 col-md-3">
                     <div className="navbar-brand" style={{ display: "flex", justifyContent: "center" }}>
-                        <img src='/images/MERNStackImage.webp' className="img-fluid" style={{ maxHeight: "90px" }} />
+                        <Link to="/">
+                            <img src='/images/MERNStackImage.webp' className="img-fluid" style={{ maxHeight: "90px" }} />
+                        </Link>
                     </div>
                 </div>
 
