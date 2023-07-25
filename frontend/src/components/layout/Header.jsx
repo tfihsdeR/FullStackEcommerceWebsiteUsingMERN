@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
+import { Routes, Router, Route, useNavigate } from 'react-router-dom'
+import SearchBar from './SearchBar'
 
-function header() {
+function Header() {
     return (
         <Fragment>
             <nav className="navbar row">
@@ -11,14 +13,7 @@ function header() {
                 </div>
 
                 <div className="col-12 col-md-6 mt-2 mt-md-0">
-                    <div className="input-group">
-                        <input type="text" id="search_field" className="form-control" placeholder="Enter Product Name ..." />
-                        <div className="input-group-append">
-                            <button id="search_btn" className="btn">
-                                <i className="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <SearchBar />
                 </div>
 
                 <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
@@ -32,4 +27,4 @@ function header() {
     )
 }
 
-export default header
+export default Header

@@ -7,23 +7,26 @@ import Loader from "./layout/Loader"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllProducts } from "../actions/productActions"
 import { useAlert, reactAlert } from "react-alert"
+import { useParams } from 'react-router-dom'
 
 function Home() {
     const dispatch = useDispatch();
     const alert = useAlert();
+
+    const { keyword } = useParams();
 
     const { loading, products, error, productsCount, resPerPage } = useSelector(state => state.products)
 
     const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
-        dispatch(getAllProducts(currentPage))
+        dispatch(getAllProducts(keyword, currentPage))
 
         if (error) {
             return alert.error(error)
         }
 
-    }, [dispatch, error, alert, currentPage])
+    }, [dispatch, error, alert, currentPage, keyword])
 
     const setCurrentPageNo = (pageNum) => {
         setCurrentPage(pageNum)
