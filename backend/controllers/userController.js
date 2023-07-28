@@ -1,12 +1,21 @@
+const crypto = require("crypto");
+const cloudinary = require("cloudinary");
+
 const User = require("../models/user");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
-const crypto = require("crypto");
 
 // Register a User => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale"
+    })
+
     const { name, email, password } = req.body
 
     const user = await User.create({
@@ -14,8 +23,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
         email,
         password,
         avatar: {
-            public_id: "avatar-the-last-airbender",
-            url: "https://playtusu.com/wp-content/uploads/2021/11/avatar-the-last-airbender.jpg"
+            public_id: result.public_id,
+            url: result.secure_url
         }
     })
 
