@@ -21,6 +21,7 @@ function Home() {
    const [currentPage, setCurrentPage] = useState(1)
    const [price, setPrice] = useState([1, 1000])
    const [category, setCategory] = useState("")
+   const [rating, setRating] = useState(0)
 
    const categories = [
       'Electronics',
@@ -38,13 +39,13 @@ function Home() {
    ]
 
    useEffect(() => {
-      dispatch(getAllProducts(keyword, currentPage, price, category))
+      dispatch(getAllProducts(keyword, currentPage, price, category, rating))
 
       if (error) {
          return alert.error(error)
       }
 
-   }, [dispatch, error, alert, currentPage, keyword, price, category])
+   }, [dispatch, error, alert, currentPage, keyword, price, category, rating])
 
    const setCurrentPageNo = (pageNum) => {
       setCurrentPage(pageNum)
@@ -96,6 +97,28 @@ function Home() {
                                              {categories.map(category => (
                                                 <li style={{ cursor: "pointer", listStyleType: "none" }} key={category} onClick={() => setCategory(category)}>
                                                    {category}
+                                                </li>
+                                             ))}
+                                          </ul>
+                                       </div>
+
+                                       <hr className="my-3" />
+
+                                       <div className="mt-5">
+                                          <h4 className="mb-3">Ratings</h4>
+
+                                       </div>
+                                       <div className="mt-5">
+                                          <ul className="pl-0" style={{ paddingLeft: "0" }}>
+                                             {[5, 4, 3, 2, 1].map(star => (
+                                                <li style={{ cursor: "pointer", listStyleType: "none" }} key={star} onClick={() => setRating(star)}>
+                                                   <div className="rating-outer">
+                                                      <div className="rating-inner" style={{
+                                                         width: `${star * 20}%`
+                                                      }}>
+
+                                                      </div>
+                                                   </div>
                                                 </li>
                                              ))}
                                           </ul>
