@@ -31,7 +31,7 @@ function ProductDetails() {
       <Fragment>
          {loading ? <Loader /> : (
             <Fragment>
-               <MetaData title={product.name} />
+               <MetaData title={product ? product.name : null} />
                {
                   product ? (
                      <div className="row f-flex justify-content-around">

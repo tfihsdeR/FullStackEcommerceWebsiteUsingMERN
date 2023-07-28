@@ -8,7 +8,6 @@ import Loader from "../layout/Loader.jsx"
 import { login, clearErrors } from "../../actions/userActions.jsx"
 
 function Login() {
-
     const alert = useAlert()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -33,7 +32,6 @@ function Login() {
         e.preventDefault()
         dispatch(login(email, password))
     }
-
 
     return (
         <div>

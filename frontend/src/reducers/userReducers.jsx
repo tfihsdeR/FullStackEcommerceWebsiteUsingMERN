@@ -1,12 +1,22 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, CLEAR_ERRORS } from "../constants/userConstants.jsx"
+import {
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    CLEAR_ERRORS,
+    REGISTER_USER_REQUEST,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_FAIL
+} from "../constants/userConstants.jsx"
 
 export const authReducer = (state = { user: {} }, action) => {
     switch (action.type) {
+        case REGISTER_USER_REQUEST:
         case LOGIN_REQUEST:
             return {
                 loading: true,
                 isAuthenticated: false
             }
+        case REGISTER_USER_SUCCESS:
         case LOGIN_SUCCESS:
             return {
                 ...state,
@@ -14,6 +24,7 @@ export const authReducer = (state = { user: {} }, action) => {
                 isAuthenticated: true,
                 user: action.payload
             }
+        case REGISTER_USER_FAIL:
         case LOGIN_FAIL:
             return {
                 ...state,
