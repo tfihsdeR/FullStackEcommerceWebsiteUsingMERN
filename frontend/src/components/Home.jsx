@@ -42,7 +42,8 @@ function Home() {
       dispatch(getAllProducts(keyword, currentPage, price, category, rating))
 
       if (error) {
-         return alert.error(error)
+         alert.error(error)
+         dispatch(clearErrors())
       }
 
    }, [dispatch, error, alert, currentPage, keyword, price, category, rating])
