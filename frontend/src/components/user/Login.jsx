@@ -12,10 +12,11 @@ function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const { isAuthenticated, error, loading } = useSelector(state => state.auth)
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const { isAuthenticated, error, loading } = useSelector(state => state.auth)
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -66,7 +67,7 @@ function Login() {
                                     <div className="float-right my-4">
                                         <Link to="/password/forgot" style={{ float: "right" }} className="float-right mb-4">Forgot Password?</Link>
                                     </div>
-                                    <div class="d-flex justify-content-center ">
+                                    <div className="d-flex justify-content-center ">
                                         <button id="login_button" type="submit" className="btn btn-block py-3">LOGIN</button>
                                     </div>
 
