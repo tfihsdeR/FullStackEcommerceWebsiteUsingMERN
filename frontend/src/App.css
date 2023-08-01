@@ -348,6 +348,27 @@ footer {
     box-shadow: none;
 }
 
+/* Avatar Dropdown Menu */
+
+.profileDropdownItem {
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    background-color: #232f3e;
+    padding: 10px;
+    transition: transform .5s;
+    border-radius: 10px;
+}
+
+.profileDropdownItem a {
+    display: block;
+    text-decoration: none;
+}
+
+.profileDropdownItem a:hover {
+    background-color: grey;
+}
+
 /* Header User Profile */
 
 .avatar-nav {

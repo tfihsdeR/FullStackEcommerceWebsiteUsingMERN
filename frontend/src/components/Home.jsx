@@ -43,7 +43,6 @@ function Home() {
 
       if (error) {
          alert.error(error)
-         dispatch(clearErrors())
       }
 
    }, [dispatch, error, alert, currentPage, keyword, price, category, rating])
@@ -146,7 +145,7 @@ function Home() {
                   </section>
 
                   {resPerPage <= count && (
-                     <div className='d-flex justify-content mt-5'>
+                     <div className='d-flex justify-content-center mt-5' >
                         <Pagination
                            activePage={currentPage}
                            itemsCountPerPage={resPerPage}
