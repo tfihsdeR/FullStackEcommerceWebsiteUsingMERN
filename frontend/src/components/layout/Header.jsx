@@ -88,7 +88,7 @@ function Header() {
                                             <Link to="/admin/dashboard">Dashboard</Link>
                                         )
                                     }
-                                    <Link to="/user" >Profile</Link>
+                                    <Link to="/user/profile" >Profile</Link>
                                     <Link className="text-danger" to="/" onClick={logOutHandler}>Logout</Link>
                                 </div>
                             )}
