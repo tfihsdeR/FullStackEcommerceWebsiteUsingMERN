@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from "react-alert"
+import { useNavigate } from 'react-router-dom'
 
 import MetaData from "../layout/MetaData.jsx"
-import Loader from "../layout/Loader.jsx"
 import { updateUserProfile, loadUser, clearErrors } from '../../actions/userActions.jsx'
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstants.jsx"
-import { useNavigate } from 'react-router-dom'
 
 function UpdateUserProfile() {
 

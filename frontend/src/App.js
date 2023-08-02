@@ -13,6 +13,7 @@ import store from './store.jsx';
 import Profile from './components/user/Profile.jsx';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import UpdateUserProfile from './components/user/UpdateUserProfile';
+import UpdatePassword from './components/user/UpdatePassword';
 
 function App() {
 
@@ -31,7 +32,8 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/user/profile" element={<ProtectedRoute element={<Profile />} />} />
-                    <Route path="/user/profile/update" element={<UpdateUserProfile />} />
+                    <Route path="/user/profile/update" element={<ProtectedRoute element={<UpdateUserProfile />} />} />
+                    <Route path="/user/password/update" element={<ProtectedRoute element={<UpdatePassword />} />} />
                 </Routes>
             </div>
             <Footer />
