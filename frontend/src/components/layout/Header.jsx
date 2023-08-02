@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
 
 import SearchBar from './SearchBar'
+import { logout } from '../../actions/userActions'
 
 function Header() {
 
@@ -30,6 +31,11 @@ function Header() {
         }
     };
 
+    const logOutHandler = () => {
+        dispatch(logout());
+        alert.success("Logged out successfully.")
+    }
+
     return (
         <Fragment>
             <nav className="navbar row">
@@ -41,7 +47,7 @@ function Header() {
                     </div>
                 </div>
 
-                <div className="col-12 col-md-6 mt-2 mt-md-0">
+                <div className="col-12 col-md-6 mt-2 mt-md-0" >
                     <SearchBar />
                 </div>
 
@@ -76,14 +82,14 @@ function Header() {
                                     style={{ transform: `translateY(${textPosition}px)` }}
                                 >
                                     {
-                                        user.role == "admin" ? (
-                                            <Link to="/orders/user" >Orders</Link>
+                                        user.role != "admin" ? (
+                                            <Link to="/user/orders" >Orders</Link>
                                         ) : (
-                                            <Link to="/dashboard">Dashboard</Link>
+                                            <Link to="/admin/dashboard">Dashboard</Link>
                                         )
                                     }
                                     <Link to="/user" >Profile</Link>
-                                    <Link className="text-danger" to="/" >Logout</Link>
+                                    <Link className="text-danger" to="/" onClick={logOutHandler}>Logout</Link>
                                 </div>
                             )}
                         </div>

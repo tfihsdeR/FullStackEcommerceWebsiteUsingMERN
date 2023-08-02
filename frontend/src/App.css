@@ -353,7 +353,7 @@ footer {
 .profileDropdownItem {
     position: absolute;
     right: 0;
-    bottom: -40px;
+    bottom: -50px;
     background-color: #232f3e;
     padding: 10px;
     transition: transform .5s;
