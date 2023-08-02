@@ -133,12 +133,32 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
 
 // Update user profile => /api/v1/profile/update
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+
     const newUserData = {
         name: req.body.name,
         email: req.body.email
     }
 
-    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    if (req.bodyuser != "") {
+        const user = await User.findById(req.user.id)
+
+        const image_id = user.avatar.public_id
+
+        await cloudinary.v2.uploader.destroy(image_id)
+
+        const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 150,
+            crop: "scale"
+        });
+
+        newUserData.avatar = {
+            public_id: result.public_id,
+            url: result.secure_url
+        }
+    }
+
+    const newUser = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false

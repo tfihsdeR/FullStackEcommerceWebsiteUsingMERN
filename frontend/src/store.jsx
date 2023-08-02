@@ -3,19 +3,20 @@ import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension"
 
 import { productReducer, productDetailsReducer } from "./reducers/productReducer"
-import { authReducer } from "./reducers/userReducers.jsx"
+import { authReducer, userReducer } from "./reducers/userReducers.jsx"
 
 const reducer = combineReducers({
     products: productReducer,
     productDetails: productDetailsReducer,
-    auth: authReducer
+    auth: authReducer,
+    user: userReducer
 })
 
 let initialState = {}
 
 
 
-const middleware = [thunk]
+// const middleware = [thunk]
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunk)))
 
 export default store

@@ -27,7 +27,7 @@ router.route("/password/reset/:token").put(resetPassword)
 router.route("/password/update").put(isAuthenticatedUser, updatePassword)
 
 router.route("/profile").get(isAuthenticatedUser, getUserProfile)
-router.route("/profile/update").put(isAuthenticatedUser, updateProfile)
+router.route("/user/profile/update").put(isAuthenticatedUser, updateProfile)
 //#endregion
 
 //#region Admin Routes
