@@ -11,13 +11,13 @@ import Register from './components/user/Register.jsx';
 import { loadUser } from './actions/userActions.jsx';
 import store from './store.jsx';
 import Profile from './components/user/Profile.jsx';
+import ProtectedRoute from './components/route/ProtectedRoute';
 
 function App() {
 
     useEffect(() => {
         store.dispatch(loadUser());
     }, [])
-
 
     return (
         <div className="App">
@@ -29,7 +29,7 @@ function App() {
                     <Route path="/product/:id" element={<ProductDetails />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/user/profile" element={<Profile />} />
+                    <Route path="/user/profile" element={<ProtectedRoute element={<Profile />} />} />
                 </Routes>
             </div>
             <Footer />
