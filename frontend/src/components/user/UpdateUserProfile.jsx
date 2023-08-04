@@ -46,7 +46,7 @@ function UpdateUserProfile() {
             }
         }
 
-    }, [dispatch, error, alert, isUpdated, user])
+    }, [dispatch, error, alert, isUpdated, user, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()

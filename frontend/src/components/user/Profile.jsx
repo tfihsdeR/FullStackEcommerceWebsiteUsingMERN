@@ -42,7 +42,7 @@ function Profile() {
 
                                             <div className=' d-flex align-items-center justify-content-space-between'>
                                                 {
-                                                    user.role != "admin" && (
+                                                    user.role !== "admin" && (
                                                         <Link to="#" className="btn btn-danger btn-block my-5">
                                                             My Orders
                                                         </Link>

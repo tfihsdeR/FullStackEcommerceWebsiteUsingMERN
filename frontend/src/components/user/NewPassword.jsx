@@ -31,7 +31,7 @@ function NewPassword() {
             navigate("/login")
         }
 
-    }, [dispatch, error, alert, success, token])
+    }, [dispatch, error, alert, success, token, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -77,7 +77,9 @@ function NewPassword() {
                             <button
                                 id="new_password_button"
                                 type="submit"
-                                className="btn btn-block py-3">
+                                className="btn btn-block py-3"
+                                disabled={loading ? true : false}
+                            >
                                 Set Password
                             </button>
 

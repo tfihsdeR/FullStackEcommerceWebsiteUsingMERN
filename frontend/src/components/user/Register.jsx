@@ -34,7 +34,7 @@ function Register() {
             alert.error(error)
             dispatch(clearErrors())
         }
-    }, [dispatch, isAuthenticated, error, alert])
+    }, [dispatch, isAuthenticated, error, alert, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()

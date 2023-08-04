@@ -34,7 +34,7 @@ function UpdatePassword() {
             navigate("/user/profile")
         }
 
-    }, [dispatch, error, alert, isUpdated])
+    }, [dispatch, error, alert, isUpdated, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()
