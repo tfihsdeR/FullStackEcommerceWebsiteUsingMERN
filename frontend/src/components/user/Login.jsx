@@ -65,7 +65,7 @@ function Login() {
                                     </div>
 
                                     <div className="float-right my-4">
-                                        <Link to="/password/forgot" style={{ float: "right" }} className="float-right mb-4">Forgot Password?</Link>
+                                        <Link to="/user/password/forgot" style={{ float: "right" }} className="float-right mb-4">Forgot Password?</Link>
                                     </div>
                                     <div className="d-flex justify-content-center ">
                                         <button id="login_button" type="submit" className="btn btn-block py-3">LOGIN</button>

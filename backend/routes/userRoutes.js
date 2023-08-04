@@ -22,8 +22,8 @@ router.route("/register").post(registerUser)
 router.route("/login").post(loginUser)
 router.route("/logout").get(logoutUser)
 
-router.route("/password/forgot").post(forgotPassword)
-router.route("/password/reset/:token").put(resetPassword)
+router.route("/user/password/forgot").post(forgotPassword)
+router.route("/user/password/reset/:token").put(resetPassword)
 router.route("/user/password/update").put(isAuthenticatedUser, updatePassword)
 
 router.route("/profile").get(isAuthenticatedUser, getUserProfile)

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cloudinary = require("cloudinary");
 const fileUpload = require("express-fileupload")
 
+
 const errorMiddleware = require("./middlewares/errors");
 
 app.use(express.json());
@@ -17,13 +18,6 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
-
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with the actual URL of your frontend
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-//     next();
-// });
 
 // Import all routes
 const products = require("./routes/productRoutes");

@@ -11,9 +11,11 @@ import Register from './components/user/Register.jsx';
 import { loadUser } from './actions/userActions.jsx';
 import store from './store.jsx';
 import Profile from './components/user/Profile.jsx';
-import ProtectedRoute from './components/route/ProtectedRoute';
-import UpdateUserProfile from './components/user/UpdateUserProfile';
-import UpdatePassword from './components/user/UpdatePassword';
+import ProtectedRoute from './components/route/ProtectedRoute.jsx';
+import UpdateUserProfile from './components/user/UpdateUserProfile.jsx';
+import UpdatePassword from './components/user/UpdatePassword.jsx';
+import ForgotPassword from './components/user/ForgotPassword.jsx';
+import NewPassword from './components/user/NewPassword';
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
                     <Route path="/user/profile" element={<ProtectedRoute element={<Profile />} />} />
                     <Route path="/user/profile/update" element={<ProtectedRoute element={<UpdateUserProfile />} />} />
                     <Route path="/user/password/update" element={<ProtectedRoute element={<UpdatePassword />} />} />
+                    <Route path="/user/password/forgot" element={<ForgotPassword />} />
+                    <Route path="/user/password/reset/:token" element={<NewPassword />} />
                 </Routes>
             </div>
             <Footer />
