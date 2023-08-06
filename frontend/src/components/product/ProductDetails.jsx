@@ -8,6 +8,7 @@ import { Carousel } from "react-bootstrap"
 import Loader from "../layout/Loader"
 import MetaData from "../layout/MetaData"
 import { getProductDetails, clearErrors } from "../../actions/productActions"
+import { addItemToCart } from '../../actions/cartActions'
 
 function ProductDetails() {
 
@@ -44,6 +45,11 @@ function ProductDetails() {
         const _quantity = count.valueAsNumber - 1;
         setQuantity(_quantity);
     };
+
+    const addToCart = () => {
+        dispatch(addItemToCart(id, quantity))
+        alert.success("Item added to the cart.")
+    }
 
     return (
         <Fragment>
@@ -86,7 +92,15 @@ function ProductDetails() {
 
                                         <span className="btn btn-primary plus" onClick={increaseQuantity}>+</span>
                                     </div>
-                                    <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4">Add to Cart</button>
+                                    <button
+                                        type="button"
+                                        id="cart_btn"
+                                        className="btn btn-primary d-inline ml-4"
+                                        onClick={addToCart}
+                                        disabled={product.stock === 0}
+                                    >
+                                        Add to Cart
+                                    </button>
 
                                     <hr />
 

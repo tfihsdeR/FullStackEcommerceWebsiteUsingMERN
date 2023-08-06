@@ -12,6 +12,7 @@ function Header() {
     const alert = useAlert()
 
     const { user, loading } = useSelector(state => state.auth)
+    const { cartItems } = useSelector(state => state.cart)
 
     const [isTextVisible, setTextVisibility] = useState(false);
     const [textPosition, setTextPosition] = useState(0);
@@ -42,7 +43,7 @@ function Header() {
                 <div className="col-12 col-md-3">
                     <div className="navbar-brand" style={{ display: "flex", justifyContent: "center" }}>
                         <Link to="/">
-                            <img src='/images/MERNStackImage.webp' className="img-fluid" style={{ maxHeight: "90px" }} />
+                            <img src='/images/MERNStackImage.webp' className="img-fluid" alt="MERNStackImage" style={{ maxHeight: "90px" }} />
                         </Link>
                     </div>
                 </div>
@@ -54,7 +55,7 @@ function Header() {
                 <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
                     <Link to={"/cart"} style={{ textDecoration: "none" }} >
                         <span id="cart" className="ml-3">Cart</span>
-                        <span className="ml-1" id="cart_count" style={{ marginLeft: "3px" }}>2</span>
+                        <span className="ml-1" id="cart_count" style={{ marginLeft: "3px" }}>{cartItems.length}</span>
                     </Link>
 
                     {user ? (

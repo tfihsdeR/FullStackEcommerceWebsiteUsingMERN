@@ -15,7 +15,10 @@ import ProtectedRoute from './components/route/ProtectedRoute.jsx';
 import UpdateUserProfile from './components/user/UpdateUserProfile.jsx';
 import UpdatePassword from './components/user/UpdatePassword.jsx';
 import ForgotPassword from './components/user/ForgotPassword.jsx';
-import NewPassword from './components/user/NewPassword';
+import NewPassword from './components/user/NewPassword.jsx';
+import Cart from './components/cart/Cart.jsx';
+import Shipping from './components/cart/Shipping.jsx';
+import ConfirmOrder from './components/cart/ConfirmOrder.jsx';
 
 function App() {
 
@@ -31,6 +34,11 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path='/search/:keyword' element={<Home />} />
                     <Route path="/product/:id" element={<ProductDetails />} />
+
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/shipping" element={<ProtectedRoute element={<Shipping />} />} />
+                    <Route path="/confirmOrder" element={<ProtectedRoute element={<ConfirmOrder />} />} />
+
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/user/profile" element={<ProtectedRoute element={<Profile />} />} />

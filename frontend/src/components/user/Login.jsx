@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from "react-alert"
 
@@ -14,20 +14,27 @@ function Login() {
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth)
 
+    const [searchParams, setSearchParams] = useSearchParams()
+    const redirect = searchParams.get('redirect')
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate("/")
+            if (redirect) {
+                navigate(`/${redirect}`)
+            } else {
+                navigate("/")
+            }
         }
 
         if (error) {
             alert.error(error)
             dispatch(clearErrors())
         }
-    }, [dispatch, isAuthenticated, error, alert])
+    }, [dispatch, isAuthenticated, error, alert, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault()
