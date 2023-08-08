@@ -27,7 +27,7 @@ function ConfirmOrder() {
         }
 
         sessionStorage.setItem("orderInfo", JSON.stringify(data));
-        navigate("/")
+        navigate("/payment")
     }
 
     return (
@@ -51,9 +51,9 @@ function ConfirmOrder() {
 
                         {
                             cartItems.map(item => (
-                                <Fragment>
+                                <Fragment key={item.product}>
                                     <hr />
-                                    <div className="cart-item my-1" key={item.product}>
+                                    <div className="cart-item my-1">
                                         <div className="row">
                                             <div className="col-4 col-lg-2">
                                                 <img src={item.image} alt="Laptop" height="45" width="65" />
