@@ -8,7 +8,7 @@ const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/userAuth
 //#region General Routes
 router.route("/products").get(getProducts);
 router.route("/product/:id").get(getSingleProduct);
-router.route("/review").put(isAuthenticatedUser, createReview) // create a new review - each user can add only one review
+router.route("/user/review").put(isAuthenticatedUser, createReview) // create a new review - each user can add only one review
 router.route("/reviews").get(getReviewsOfAProdcut) // Get all reviews of a prodcut
 //#endregion
 

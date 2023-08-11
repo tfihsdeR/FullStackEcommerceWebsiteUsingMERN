@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { createOrder, getOrderById, myOrders, getAllOrdersByAdmin, updateOrderStatusByAdmin, deleteOrderById } = require("../controllers/orderController")
+const { createOrder, getOrderById, userOrders, getAllOrdersByAdmin, updateOrderStatusByAdmin, deleteOrderById } = require("../controllers/orderController")
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/userAuthentication")
 
 //#region General Routes
-router.route("/order/new").post(isAuthenticatedUser, createOrder) // create
-router.route("/order/:id").get(isAuthenticatedUser, getOrderById) // get by id
-router.route("/orders/profile").get(isAuthenticatedUser, myOrders) // my orders
+router.route("/user/order/new").post(isAuthenticatedUser, createOrder) // create
+router.route("/user/order/:id").get(isAuthenticatedUser, getOrderById) // get by id
+router.route("/user/orders").get(isAuthenticatedUser, userOrders) // my orders
 //#endregion
 
 //#region Admin Routes

@@ -51,7 +51,7 @@ exports.getOrderById = catchAsyncErrors(async (req, res, next) => {
 })
 
 // Get logged in user orders => /api/v1/orders/profile
-exports.myOrders = catchAsyncErrors(async (req, res, next) => {
+exports.userOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find({ user: req.user.id })
 
     if (!orders) {
