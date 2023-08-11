@@ -28,7 +28,7 @@ function Header() {
 
             setTimeout(() => {
                 clearInterval(interval);
-            }, 1000);
+            }, 1300);
         }
     };
 
@@ -83,12 +83,9 @@ function Header() {
                                     style={{ transform: `translateY(${textPosition}px)` }}
                                 >
                                     {
-                                        user.role != "admin" ? (
-                                            <Link to="/user/orders" >Orders</Link>
-                                        ) : (
-                                            <Link to="/admin/dashboard">Dashboard</Link>
-                                        )
+                                        user.role == "admin" && <Link to="/admin/dashboard">Dashboard</Link>
                                     }
+                                    <Link to="/user/orders" >Orders</Link>
                                     <Link to="/user/profile" >Profile</Link>
                                     <Link className="text-danger" to="/" onClick={logOutHandler}>Logout</Link>
                                 </div>

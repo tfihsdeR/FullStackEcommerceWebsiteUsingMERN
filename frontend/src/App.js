@@ -24,6 +24,8 @@ import Cart from './components/cart/Cart.jsx';
 import Shipping from './components/cart/Shipping.jsx';
 import ConfirmOrder from './components/cart/ConfirmOrder.jsx';
 import Payment from './components/cart/Payment';
+import ListOrders from './components/order/ListOrders.jsx';
+import OrderDetails from './components/order/OrderDetails';
 
 
 function App() {
@@ -54,6 +56,10 @@ function App() {
                     {/* Cart and Payment Routes */}
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/shipping" element={<ProtectedRoute element={<Shipping />} />} />
+                    <Route path="/user/orders" element={<ProtectedRoute element={<ListOrders />} />} />
+                    <Route path="/user/order/:id" element={<ProtectedRoute element={<OrderDetails />} />} />
+
+
                     <Route path="/confirmOrder" element={<ProtectedRoute element={<ConfirmOrder />} />} />
                     <Route
                         path="/payment"

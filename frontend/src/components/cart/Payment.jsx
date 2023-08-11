@@ -76,6 +76,8 @@ function Payment() {
                 if (result.paymentIntent.status === "succeeded") {
                     // TODO: New Order
 
+                    alert.success("Payment done successfully.")
+
                     navigate("/success")
                 } else {
                     alert.error("Tehere is some issues while payment processing")
