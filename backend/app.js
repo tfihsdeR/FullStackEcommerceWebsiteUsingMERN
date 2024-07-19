@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 // const cloudinary = require("cloudinary");
 const fileUpload = require("express-fileupload")
 const dotenv = require("dotenv");
+const path = require("path");
 
 
 const errorMiddleware = require("./middlewares/errors");
@@ -15,7 +16,8 @@ app.use(cookieParser());
 app.use(fileUpload())
 
 // Setting up config file
-dotenv.config({ path: "backend/config/config.env" })
+// dotenv.config({ path: "backend/config/config.env" })
+dotenv.config({ path: path.resolve(__dirname, "./config/.env") })
 
 // cloudinary.config({
 //     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
